@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int k;
+    char a[10];
+    char b[10];
+    gets(a);
+    gets(b);
+    if (strcmp(a,b)==0)
+    printf("equal");
+    else
+        printf("not Equal");
+
+
+    
+    return 0;
+}

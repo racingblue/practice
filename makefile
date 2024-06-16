@@ -9,6 +9,7 @@ git_add_commit_push() {
     # Add all modified and new files to the staging area
     git add .
 
+
     # Commit changes with a specified commit message
     git commit -m "$COMMIT_MESSAGE"
 

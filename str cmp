@@ -5,6 +5,7 @@ int main()
 {
     int k;
     char a[10];
+
     char b[10];
     gets(a);
     gets(b);

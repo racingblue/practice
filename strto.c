@@ -9,12 +9,16 @@ char *my_strtok(char str[], const char delim[])
     {
       temp=str;  
     }
+    if(temp==NULL||temp[0]=='\0')
+    return NULL;
    int flag=1;
-   char *dup;
+   static char *dup;
    int i1;
     next:
          {
              temp+=i1;
+             if(temp==NULL)
+             return dup;
 
          }
     for(int i=0;temp[i]!=0;i++)
@@ -62,7 +66,9 @@ char *my_strtok(char str[], const char delim[])
             }
             
         }
+        //return dup;
     }
+    return dup;
     //return NULL;
 }
 

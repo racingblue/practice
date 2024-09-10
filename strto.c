@@ -17,21 +17,17 @@ char *my_strtok(char str[], const char delim[])
     next:
          {
              temp+=i1;
-             if(temp==NULL)
-             return dup;
-
+            
          }
     for(int i=0;temp[i]!=0;i++)
-    {
-        
-                
+    {     
        
             char *dup=temp;
            
         
         for(int j=0;delim[j]!='\0';j++)
         {
-            if(temp[i]==delim[j])
+            if(temp[i]==delim[j]||temp[i]=='\0')
             {
                 dup[i]='\0';
                 temp+=i+1;
@@ -61,8 +57,6 @@ char *my_strtok(char str[], const char delim[])
              if(i1!=0)
               return dup;
            
-            
-            
             }
             
         }

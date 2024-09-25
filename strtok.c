@@ -27,10 +27,9 @@ char *my_strtok(char str[], const char delim[])
         
         for(int j=0;delim[j]!='\0';j++)
         {
-            if(temp[i]==delim[j])
+            if(temp[i]==delim[j]||temp[i]=='\0')
             {
                 dup[i]='\0';
-               // if(temp[i]!='\0')
                 temp+=i+1;
                 if(i!=0)
                 return dup;
@@ -59,7 +58,7 @@ char *my_strtok(char str[], const char delim[])
               return dup;
            
             }
-            else
+             else
             {
                 int c=0;
                 for(int i1=0;temp[i1]!='\0';i1++)
@@ -84,7 +83,10 @@ char *my_strtok(char str[], const char delim[])
                 }
                
             }
+           
             
+             
+             
             
         }
         //return dup;
@@ -103,7 +105,7 @@ int main()
     __fpurge(stdout);
  
     printf("Enter the delimeter : ");
-    scanf("%s", delim);
+    scanf("\n%s", delim);
     __fpurge(stdout);
     
     char *token = my_strtok(str, delim);
@@ -117,3 +119,4 @@ int main()
 
 
 }
+

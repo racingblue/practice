@@ -27,7 +27,7 @@ int count;
         {
              for(int j=26;j>0;j--)
             {
-                for(int i=0;i<count;i++)
+                for(int i=1;i<=count;i++)
                 {
                     if(addressBook->contacts[i].name[0]==(64+j)||addressBook->contacts[i].name[0]==(96+j))
                      printf("%s\t%s\t%s\n",addressBook->contacts[i].name,addressBook->contacts[i].number,addressBook->contacts[i].email);
@@ -40,7 +40,7 @@ int count;
         {
             for(int j=0;j<26;j++)
             {
-                for(int i=0;i<count;i++)
+                for(int i=1;i<=count;i++)
                 {
                     if(addressBook->contacts[i].name[0]==(65+j)||addressBook->contacts[i].name[0]==(97+j))
                      printf("%s\t%s\t%s\n",addressBook->contacts[i].name,addressBook->contacts[i].number,addressBook->contacts[i].email);
@@ -72,10 +72,9 @@ void initialize(AddressBook *addressBook) {
 }
 
 void saveAndExit(AddressBook *addressBook) {
-    saveContactsToFile(addressBook);
-    {
 
-    } // Save contacts to file
+    saveContactsToFile(addressBook);
+    // Save contacts to file
     exit(EXIT_SUCCESS); // Exit the program
 }
 
@@ -147,7 +146,6 @@ int validate_mail(char mail[])
         return 0;
 
     }
-    
     else
     {
         count+=1;
@@ -171,6 +169,7 @@ int searchContact(AddressBook *addressBook)
     printf("\n2->Mobile number");
     printf("\n3->Email\n");
     scanf("\n%d",&option);
+   // getchar();
     char tempname[50];
     char tempnumber[10];
     char tempmail[30];
@@ -181,6 +180,7 @@ int searchContact(AddressBook *addressBook)
         //getchar();
        
         scanf("%[^\n]",tempname);
+        getchar();
         //fgets(tempname,10,stdin);
          
                int index= searchname(addressBook,tempname);
@@ -189,16 +189,16 @@ int searchContact(AddressBook *addressBook)
      else if(option==2)
     {
         printf("Enter number");
-        scanf("%[^\n]",tempnumber);
-       
+        scanf("%s",tempnumber);
+       getchar();
                 int index=searchnumber(addressBook,tempnumber);
                 return index;
     }
     else if(option==3)
     {
         printf("Enter Email");
-        scanf("%[^\n]",tempmail);
-        
+        scanf("%s",tempmail);
+        getchar();
                 int index=searchemail(addressBook,tempmail);
                 return index;
     }
@@ -209,7 +209,7 @@ return 0;
     /* Define the logic for search */
     
 
-int searchname(AddressBook *addressBook,char *temp )
+int searchname(AddressBook *addressBook,char *temp)
 {
       int flag;
       int out=0;
@@ -221,12 +221,12 @@ int searchname(AddressBook *addressBook,char *temp )
         len++;
 
       }
-      for(len;len>0;len--)
-      {
-         for(int i=0;i<count;i++)
+     // for(len;len>0;len--)//to get the name if half of string matches
+      //{
+         for(int i=1;i<=count;i++)
         {
         flag=1;
-        for(int j=0;j<=len;j++)
+        for(int j=0;j<len;j++)
         {
             if(temp[j]==addressBook->contacts[i].name[j])
             flag=0;
@@ -234,12 +234,15 @@ int searchname(AddressBook *addressBook,char *temp )
            
             
         }
+        printf("\nname%s",addressBook->contacts[1].name);
+           printf("\nnum%s",addressBook->contacts[1].number);
+           printf("\nemail%s",addressBook->contacts[1].email);
         if(flag==0)
         {
             out=1;
-           printf("\n%s",addressBook->contacts[i].name);
-           printf("\n%s",addressBook->contacts[i].number);
-           printf("\n%s",addressBook->contacts[i].email);
+           printf("\nname%s",addressBook->contacts[i].name);
+           printf("\nnum%s",addressBook->contacts[i].number);
+           printf("\nemail%s",addressBook->contacts[i].email);
            return i;
         }
         }
@@ -247,7 +250,7 @@ int searchname(AddressBook *addressBook,char *temp )
          printf("No matching found"); 
           return 0;
 
-      }
+     // }
    
       /*  if(flag!=0)
         {
@@ -262,7 +265,7 @@ int searchname(AddressBook *addressBook,char *temp )
    
 
 
-int searchnumber(AddressBook *addressBook,char temp[] )
+int searchnumber(AddressBook *addressBook,char *temp)
 {
       int flag;
       int out=0;
@@ -288,7 +291,7 @@ int searchnumber(AddressBook *addressBook,char temp[] )
     printf("No matching found"); 
 
 }
-int searchemail(AddressBook *addressBook,char temp[] )
+int searchemail(AddressBook *addressBook,char *temp)
 {
       int flag;
       int out=0;
@@ -298,14 +301,14 @@ int searchemail(AddressBook *addressBook,char temp[] )
         for(int j=0;temp[j]!='\0';j++)
         {
             //printf("%c",addressBook->contacts->email[j]);
-            if(temp[j]!=addressBook->contacts->email[j])
+            if(temp[j]==addressBook->contacts[i].email[j])
             flag==1;
         }
         if(flag!=1)
         {
             out=1;
-            printf("\n%s",addressBook->contacts->name);
-           printf("\n%s",addressBook->contacts->email);
+            printf("\n%s",addressBook->contacts[i].name);
+           printf("\n%s",addressBook->contacts[i].email);
            return i;
         }
        
@@ -328,13 +331,23 @@ void editContact(AddressBook *addressBook)
     printf("\n2->Number");
     printf("\n3->Email");
     scanf("%d",&option);
+    char tempname[10];
     char tempnumber[10];
     char tempmail[15];
 
     if(option == 1)
     {
         printf("\nEnter new name");
-        scanf("%s",addressBook->contacts[index].name);
+        getchar();
+        scanf("%[^\n]",tempname);
+        int i;
+        for(i=0;tempname[i]!='\0';i++)
+        {
+            addressBook->contacts[index].name[i]=tempname[i];
+
+        }
+        addressBook->contacts[index].name[i]='\0';
+        
          printf("\nSuccesfully updated");
     }
     
@@ -342,7 +355,7 @@ void editContact(AddressBook *addressBook)
     {
         nonce:
         printf("\nEnter new number");
-        scanf("%[^\n]",tempnumber);
+        scanf("%s",tempnumber);
        
                 int val=validate(tempnumber);
                 if(val)
@@ -364,7 +377,7 @@ void editContact(AddressBook *addressBook)
     {
         once:
         printf("\nEnter new Email");
-        scanf("%[^\n]",tempmail);
+        scanf("%s",tempmail);
         
                 int val=validate_mail(tempmail);
                 if(val)
@@ -409,14 +422,23 @@ void deleteContact(AddressBook *addressBook)
 void contactswap(int index,AddressBook *addressBook)
 {
     int done=0;
+    if(index==count)
+    {
+        count-=1;
+        done=1;
+    }
     for(int i=index;i<count;i++)
     { 
         addressBook->contacts[i]=addressBook->contacts[i+1];
         done=1;
-        count-=1;
+        
     }
     if(done)
-    printf("\nDeleted successfully");
+    {
+        count-=1;
+         printf("\nDeleted successfully");
+    }
+   
 }
 void saveContactsToFile(AddressBook *addressBook)
 {
